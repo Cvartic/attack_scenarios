@@ -1,0 +1,20 @@
+udp_flood:
+  # Botnet size
+  n_bots: 100                   # numero nodi bot attivi
+
+  # Packet rate
+  base_rate_pps: 200            # pkt/s per bot all'inizio dell'attacco
+  rate_increment_pps: 100       # incremento per ogni step di escalation
+  max_rate_pps: 1000            # cap massimo (peak Mirai-like)
+
+  # Timing
+  duration_s: 120               # durata totale dell'attacco
+  escalation_step_s: 10         # ogni quanti secondi aumenta il rate
+
+  # Payload
+  payload_min_bytes: 64
+  payload_max_bytes: 1400
+
+  # Network
+  target_ip: "192.168.1.1"
+  src_subnet: "10"              # primo ottetto per IP spoofati (es. 10.x.x.x)
