@@ -17,3 +17,27 @@ udp_flood:
 
   # Network
   target_ip: "192.168.1.1"
+
+
+escalation_attack:
+
+  target_ip: "192.168.1.1"
+
+  # Phase durations
+  phase_stealth_duration_s:     45    # quanto dura la fase stealth
+  phase_rampup_duration_s:      90    # quanto dura la fase di ramp-up
+  phase_saturation_duration_s:  45    # quanto dura la saturazione finale
+
+  # Phase 0 - Stealth
+  stealth_n_bots:        20           # bot attivi in fase stealth
+  stealth_rate_pps:       5           # pkt/s per bot
+  stealth_jitter_ms:    150           # jitter max inter-packet (ms)
+  stealth_port_sigma:    30           # sigma gaussiana porte dst
+  stealth_payload_min:   64
+  stealth_payload_max:  256
+
+  # Phase 2 - Saturation
+  saturation_n_bots:    300           # bot al picco
+  saturation_rate_pps:  600           # pkt/s per bot al picco
+  saturation_payload_min: 512
+  saturation_payload_max: 1400

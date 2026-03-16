@@ -67,7 +67,7 @@ class UDPFloodGenerator:
                 if pkt_time >= self.duration:
                     break
                 event = PacketEvent(
-                    timestamp    = round(pkt_time, 6),
+                    timestamp    = pkt_time,
                     src_ip       = bot_ips[bot_id],
                     dst_ip       = self.dst_ip,
                     src_port     = random.randint(1024, 65535),
@@ -83,6 +83,9 @@ class UDPFloodGenerator:
         return events
 
     def create_log(self, events: List[PacketEvent], path: str):
+        import os
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        
         with open(path, "w") as f:
             for e in events:
                 f.write(json.dumps(asdict(e)) + "\n")
