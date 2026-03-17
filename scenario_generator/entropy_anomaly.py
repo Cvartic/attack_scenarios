@@ -2,7 +2,7 @@ import random
 import math
 import json
 from dataclasses import dataclass, asdict
-from typing import List, Tuple
+from typing import List
 
 
 # ---------------------------------------------------------------------------
