@@ -41,3 +41,28 @@ escalation_attack:
   saturation_rate_pps:  600           # pkt/s per bot al picco
   saturation_payload_min: 512
   saturation_payload_max: 1400
+
+
+entropy_anomaly:
+  target_ip:   "192.168.1.1"
+  duration_s:  240
+
+  n_sources: 15
+
+  burst_rate_pps:          400
+  burst_duration_min_ms:   500
+  burst_duration_max_ms:  3000
+
+  silence_mean_ms:  8000
+  silence_min_ms:   2000
+  silence_max_ms:  30000
+
+  beacon_leak_rate_pps: 10
+
+  sus_ports:  [4444, 6666, 31337, 8888, 9999]
+  port_sigma:  20
+
+  payload_clusters:
+    - [64,   10]
+    - [512,  80]
+    - [1400, 30]

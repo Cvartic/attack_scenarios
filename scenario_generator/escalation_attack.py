@@ -20,6 +20,8 @@ class PacketEvent:
     dst_port:     int
     protocol:     str
     payload_size: int
+    
+    # Metadata for debugging
     bot_id:       int
     phase:        int    # 0=stealth, 1=rampup, 2=saturation
     phase_name:   str

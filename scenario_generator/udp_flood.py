@@ -15,6 +15,8 @@ class PacketEvent:
     dst_port: int
     protocol: str
     payload_size: int
+    
+    # Metadata for debugging
     bot_id: int
     step: int
 
