@@ -29,7 +29,7 @@ class PacketEvent:
 # Helper functions
 # ---------------------------------------------------------------------------
 
-def get_random_ip(self) -> str:
+def get_random_ip() -> str:
     return f"{random.randint(0,255)}.{random.randint(0,255)}.{random.randint(0,255)}.{random.randint(1,254)}"
 
 
@@ -164,24 +164,23 @@ def generate_silence_traffic(interval: dict, config: dict,
     dt        = round(1000 / leak_rate)     # inter-packet gap (ms)
 
     while t < end_t:
-        if random.random() < leak_rate:
-            bot_id = random.randint(0, config["n_sources"] - 1)
-            pkt_time = random.randint(t, t + dt)
-            if pkt_time < end_t:
-                events.append(PacketEvent(
-                    timestamp    = pkt_time,
-                    src_ip       = src_ips[bot_id],
-                    dst_ip       = config["target_ip"],
-                    src_port     = random.randint(1024, 65535),
-                    dst_port     = get_port(
-                                       config["sus_ports"],
-                                       config["port_sigma"]),
-                    protocol     = "UDP",
-                    payload_size = 64, # always small packets
-                    bot_id       = bot_id,
-                    burst_id     = burst_id,
-                    is_silence  = True,
-                ))
+        bot_id = random.randint(0, config["n_sources"] - 1)
+        pkt_time = random.randint(t, t + dt)
+        if pkt_time < end_t:
+            events.append(PacketEvent(
+                timestamp    = pkt_time,
+                src_ip       = src_ips[bot_id],
+                dst_ip       = config["target_ip"],
+                src_port     = random.randint(1024, 65535),
+                dst_port     = get_port(
+                                    config["sus_ports"],
+                                    config["port_sigma"]),
+                protocol     = "UDP",
+                payload_size = 64, # always small packets
+                bot_id       = bot_id,
+                burst_id     = burst_id,
+                is_silence  = True,
+            ))
         t += dt
 
     return events
@@ -198,8 +197,7 @@ class EntropyAnomalyGenerator:
 
     def build_source_pool(self) -> List[str]:
         """Stable source IPs — not heavily spoofed."""
-        base = self.config.get("src_base", "172.16")
-        return [get_random_ip(base) for _ in range(self.config["n_sources"])]
+        return [get_random_ip() for _ in range(self.config["n_sources"])]
 
     def generate(self) -> List[PacketEvent]:
         src_ips  = self.build_source_pool()
