@@ -31,8 +31,6 @@ escalation_attack:
   # Phase 0 - Stealth
   stealth_n_bots:        20           # bot attivi in fase stealth
   stealth_rate_pps:       5           # pkt/s per bot
-  stealth_jitter_ms:    150           # jitter max inter-packet (ms)
-  stealth_port_sigma:    30           # sigma gaussiana porte dst
   stealth_payload_min:   64
   stealth_payload_max:  256
 
