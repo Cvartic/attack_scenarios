@@ -61,7 +61,8 @@ class UDPFloodGenerator:
             rate   = self.get_current_rate(cur_step)
             dt = round(1000 / rate)  # inter-packet gap (ms)
 
-            for bot_id in range(self.n_bots):
+            for _ in range(self.n_bots):
+                bot_id = random.randint(0, self.n_bots - 1)
                 pkt_time = random.randint(t, t + dt)
                 if pkt_time >= self.duration:
                     break
