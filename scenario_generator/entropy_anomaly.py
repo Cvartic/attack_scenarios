@@ -4,8 +4,6 @@ import json
 from dataclasses import dataclass, asdict
 from typing import List
 
-random.seed(33)  # for reproducibility
-
 # ---------------------------------------------------------------------------
 # Data model
 # ---------------------------------------------------------------------------
@@ -258,6 +256,10 @@ def load_config(yaml_path: str) -> dict:
 
 if __name__ == "__main__":
     config = load_config("scenario_config.yaml")
+    
+    random.seed(config.get("seed", 42))  # for reproducibility
+
     gen    = EntropyAnomalyGenerator(config)
     events = gen.generate()
+    
     gen.create_log(events, "logs/entropy_anomaly_simulation.log")

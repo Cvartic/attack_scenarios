@@ -3,8 +3,6 @@ import json
 from dataclasses import dataclass, asdict
 from typing import List
 
-random.seed(33)  # for reproducibility
-
 @dataclass
 class PacketEvent:
     timestamp: float
@@ -111,6 +109,8 @@ def load_config(yaml_path: str) -> dict:
 
 if __name__ == "__main__":
     config = load_config('scenario_config.yaml')
+
+    random.seed(config.get("seed", 42)) # for reproducibility
 
     gen    = UDPFloodGenerator(config)
     events = gen.generate()

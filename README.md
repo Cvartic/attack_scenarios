@@ -10,5 +10,6 @@ Attack scenario generators for stress testing the Ψ-Risk-DT framework.
   - `escalation_attack.py` - structured attack divided in 3 distinct phases (Stealth, Ramp-up, Saturation)
 
 ## Usage
+1. Install the requirement
 1. Adjust `scenario_config.yaml` if necessary.
 2. Run the desired module (e.g. `python scenario_generator/udp_flood.py`).
