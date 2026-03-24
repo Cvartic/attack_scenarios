@@ -85,9 +85,8 @@ def generate_stealth_phase(config: dict, t_offset: int,
                 phase        = 0,
                 phase_name   = "stealth",
             ))
-        t += dt
+            t += dt
 
-    events.sort(key=lambda e: e.timestamp)
     return events
 
 
@@ -132,9 +131,8 @@ def generate_rampup_phase(config: dict, t_offset: int,
                 phase        = 1,
                 phase_name   = "rampup",
             ))
-        t += dt_now
+            t += dt_now
 
-    events.sort(key=lambda e: e.timestamp)
     return events
 
 
@@ -169,9 +167,8 @@ def generate_saturation_phase(config: dict, t_offset: int,
                 phase        = 2,
                 phase_name   = "saturation",
             ))
-        t += dt
+            t += dt
 
-    events.sort(key=lambda e: e.timestamp)
     return events
 
 
