@@ -1,5 +1,7 @@
 import random
 import json
+import argparse
+import yaml
 from dataclasses import dataclass, asdict
 from typing import List
 
@@ -212,24 +214,19 @@ class EscalationAttackGenerator:
         print(f"[escalation] JSONL → {path}")
 
 
-def load_config(yaml_path: str) -> dict:
-    try:
-        import yaml
-        with open(yaml_path) as f:
-            cfg = yaml.safe_load(f)
-        return cfg.get("escalation_attack", {})
-    except (ImportError, FileNotFoundError) as e:
-        print(f"[warning] {e} — using defaults.")
-        return {}
-
 
 
 if __name__ == "__main__":
-    config = load_config('scenario_config.yaml')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="scenario_config.yaml")
+    parser.add_argument("--output", default="logs/escalation_attack_simulation.log")
+    args = parser.parse_args()
+    
+    config = yaml.safe_load(open(args.config))
 
     random.seed(config.get("seed", 42)) # for reproducibility
     
     gen    = EscalationAttackGenerator(config)
     events = gen.generate()
     
-    gen.create_log(events, 'logs/escalation_attack_simulation.log')
+    gen.create_log(events, args.output)

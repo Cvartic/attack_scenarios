@@ -1,3 +1,5 @@
+import argparse
+import yaml
 import random
 import json
 from dataclasses import dataclass, asdict
@@ -109,11 +111,16 @@ def load_config(yaml_path: str) -> dict:
 
 
 if __name__ == "__main__":
-    config = load_config('scenario_config.yaml')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="scenario_config.yaml")
+    parser.add_argument("--output", default="logs/udp_flood_simulation.log")
+    args = parser.parse_args()
+    
+    config = yaml.safe_load(open(args.config))
 
     random.seed(config.get("seed", 42)) # for reproducibility
 
     gen    = UDPFloodGenerator(config)
     events = gen.generate()
 
-    gen.create_log(events, "logs/udp_flood_simulation.log")
+    gen.create_log(events, args.output)

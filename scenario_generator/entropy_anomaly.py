@@ -1,6 +1,8 @@
 import random
 import math
 import json
+import argparse
+import yaml
 from dataclasses import dataclass, asdict
 from typing import List
 
@@ -233,33 +235,20 @@ class EntropyAnomalyGenerator:
 
 
 # ---------------------------------------------------------------------------
-# Config loader
-# ---------------------------------------------------------------------------
-
-def load_config(yaml_path: str) -> dict:
-    try:
-        import yaml
-        with open(yaml_path) as f:
-            cfg = yaml.safe_load(f)
-        return cfg.get("entropy_anomaly", {})
-    except ImportError:
-        print("[warning] PyYAML not found — using CLI defaults.")
-        return {}
-    except FileNotFoundError:
-        print(f"[warning] Config file '{yaml_path}' not found — using CLI defaults.")
-        return {}
-
-
-# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    config = load_config("scenario_config.yaml")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="scenario_config.yaml")
+    parser.add_argument("--output", default="logs/entropy_anomaly_simulation.log")
+    args = parser.parse_args()
+    
+    config = yaml.safe_load(open(args.config))
     
     random.seed(config.get("seed", 42))  # for reproducibility
 
     gen    = EntropyAnomalyGenerator(config)
     events = gen.generate()
     
-    gen.create_log(events, "logs/entropy_anomaly_simulation.log")
+    gen.create_log(events, args.output)
