@@ -3,7 +3,8 @@
 Attack scenario generators for stress testing the Ψ-Risk-DT framework.
 
 ## Structure
-- `scenario_config.yaml` - run configuration
+- `scenario_config.yaml` - configuration file of the base generators
+- `scenario_campaigns_config.yaml` - configuration file of the scenario campaigns generator
 - `scenario_generator/` - attack modules
   - `udp_flood.py` - UDP volumetric flood attack pattern for high packet rate stress testing
   - `entropy_anomaly.py` - zero-day like attack with unusual entropy characteristics
