@@ -80,8 +80,9 @@ class UDPFloodGenerator:
                     step        = cur_step,
                 )
                 events.append(event)
-                t += dt  # increment time
+            t += dt  # increment time
                 
+        events.sort(key=lambda e: e.timestamp)
         return events
 
     def create_log(self, events: List[PacketEvent], path: str):

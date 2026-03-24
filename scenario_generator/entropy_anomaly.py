@@ -145,8 +145,9 @@ def generate_burst_packets(interval: dict, config: dict,
                 burst_id     = burst_id,
                 is_silence  = False,
             ))
-            t += dt
+        t += dt
 
+    events.sort(key=lambda e: e.timestamp)
     return events
 
 
@@ -182,8 +183,9 @@ def generate_silence_traffic(interval: dict, config: dict,
                 burst_id     = burst_id,
                 is_silence  = True,
             ))
-        t += dt
+    t += dt
 
+    events.sort(key=lambda e: e.timestamp)
     return events
 
 
